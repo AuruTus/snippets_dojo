@@ -42,18 +42,13 @@ func NewRWQueLock(writers, readers int) (*RWQueLock, error) {
 }
 
 func (l *RWQueLock) dispatch() {
-	if !l.s.TryAcquire(1) {
-		return
-	}
-
-	// get semaphore successfully
 	for l.rwRequests.Len() > 0 {
 		l.mu.Lock()
 		front := l.rwRequests.Front()
 		l.rwRequests.Remove(front)
 		l.mu.Unlock()
 
-		// try to dispatch the request until workers of the other type has finished.
+		// try not to dispatch the request until workers of the other type has finished.
 		rq := front.Value.(RWRequest)
 		for done := false; !done; {
 
@@ -83,13 +78,12 @@ func (l *RWQueLock) dispatch() {
 			}
 		}
 	}
-	l.s.Release(1)
 }
 
 func (l *RWQueLock) tryDispatch(rqst RWRequest) {
 	l.mu.Lock()
 	l.rwRequests.PushBack(rqst)
-	// add worker amounts here
+	// increase worker amounts here
 	switch rqst {
 	case READ_REQUEST:
 		l.readers++
@@ -98,7 +92,12 @@ func (l *RWQueLock) tryDispatch(rqst RWRequest) {
 	}
 	l.mu.Unlock()
 
+	if !l.s.TryAcquire(1) {
+		return
+	}
+	// get semaphore successfully
 	l.dispatch()
+	l.s.Release(1)
 }
 
 func (l *RWQueLock) ReadRequest() {
