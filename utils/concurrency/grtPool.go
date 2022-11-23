@@ -64,5 +64,12 @@ func (pl *GrtPool) Start(task func()) (ok bool) {
 }
 
 func (pl *GrtPool) Cancel() error {
+	if pl == nil || pl.emptySize() {
+		panic(fmt.Errorf("non-init pool"))
+	}
+	for i, length := 0, len(pl.doneList); i < length; i++ {
+		pl.doneList[i] <- struct{}{}
+	}
+
 	return nil
 }
