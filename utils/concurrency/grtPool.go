@@ -37,6 +37,7 @@ func InitGrtPool(size, capacity int) (*GrtPool, error) {
 				select {
 				case t := <-pool.tasks:
 					t()
+					pool.available.Release(1)
 				case <-done:
 					return
 				}
