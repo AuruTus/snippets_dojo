@@ -4,4 +4,4 @@ run:
 
 
 build:
-	go build main.go -o ./bin/app
+	go build -o ./bin/app main.go
