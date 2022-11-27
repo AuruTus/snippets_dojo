@@ -18,7 +18,7 @@ const (
 )
 
 func getCallerLine(skip int) (file string, line int) {
-	_, file, line, ok := runtime.Caller(_CALLER_STACK_SKIP_DEPTH)
+	_, file, line, ok := runtime.Caller(skip)
 	if !ok {
 		file = "???"
 		line = 0
