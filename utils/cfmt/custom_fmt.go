@@ -22,11 +22,16 @@ func getCallerLine(skip int) (file string, line int) {
 	if !ok {
 		file = "???"
 		line = 0
-	} else {
-		index := strings.Index(file, _MODULE_NAME)
+		return
+	}
+
+	// if the project's root directory name is changed, don't print
+	// relative path.
+	index := strings.Index(file, _MODULE_NAME)
+	if index != -1 {
 		file = "." + file[index+len(_MODULE_NAME):]
 	}
-	return file, line
+	return
 }
 
 func simplePrintf(ctx context.Context, format string, args ...interface{}) (int, error) {
