@@ -14,7 +14,7 @@ type ctxSema struct {
 	waiters *list.List
 }
 
-var _ Semaphore = &ctxSema{}
+var _ Semaphore = (*ctxSema)(nil)
 
 func NewContextSemaphore(n int64) (*ctxSema, error) {
 	if n < 0 {

@@ -11,7 +11,7 @@ import (
 
 type CloseChanTstr struct{}
 
-var _ Tstr = &CloseChanTstr{}
+var _ Tstr = (*CloseChanTstr)(nil)
 
 func (tstr *CloseChanTstr) Test(ctx context.Context) error {
 	const SIZE = 5

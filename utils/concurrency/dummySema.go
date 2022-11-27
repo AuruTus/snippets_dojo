@@ -14,7 +14,7 @@ type dummySema struct {
 	waiters *list.List
 }
 
-var _ Semaphore = &dummySema{}
+var _ Semaphore = (*dummySema)(nil)
 
 func NewDummySemaphore(n int64) (*dummySema, error) {
 	if n < 0 {
