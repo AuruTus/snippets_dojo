@@ -14,7 +14,7 @@ import (
 const (
 	_CALLER_STACK_SKIP_DEPTH = 3
 
-	_MODULE_NAME = "test_snipets"
+	_MODULE_NAME = "snipets_dojo"
 )
 
 func getCallerLine(skip int) (file string, line int) {
