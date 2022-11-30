@@ -9,25 +9,29 @@ import (
 	"golang.org/x/exp/constraints"
 )
 
-type ordered constraints.Ordered
+type ordered interface {
+	constraints.Integer | constraints.Float
+}
 
 type ArrPartitionTstr struct{}
 
 var _ Tstr = (*ArrPartitionTstr)(nil)
 
 func (t *ArrPartitionTstr) Test(ctx context.Context) error {
-	arr := randIntArr(0, 10, 10)
+	type targ float32
+	arr := randArr[targ](0, 10, 10)
+	cfmt.Printf(ctx, "Test arr %v\n", arr)
 	cfmt.Printf(ctx, "testSwap\n")
-	testPartition(arrCopy(arr), partitionWithSwap[int])
+	testPartition(arrCopy(arr), partitionWithSwap[targ])
 	cfmt.Printf(ctx, "testAssign\n")
-	testPartition(arrCopy(arr), partitionWithAssign[int])
+	testPartition(arrCopy(arr), partitionWithAssign[targ])
 	return nil
 }
 
-func randIntArr(min, max, len int) []int {
-	arr := make([]int, len)
+func randArr[T ordered](min, max T, len int) []T {
+	arr := make([]T, len)
 	for i := 0; i < len; i++ {
-		arr[i] = rand.Intn(max-min) + min
+		arr[i] = (T)((float32)(rand.Intn((int)(max-min))) + (rand.Float32()))
 	}
 	return arr
 }
@@ -38,18 +42,24 @@ func arrCopy[T ordered](src []T) []T {
 	return dst
 }
 
-func printArr[T ordered](arr []T) {
-	for _, v := range arr {
-		fmt.Printf("%v ", v)
-	}
-	fmt.Printf("\n")
-}
-
 func testPartition[T ordered](arr []T, partition func([]T, int, int) int) {
-	for range arr {
-		printArr(arr)
-		partition(arr, 0, len(arr)-1)
+	printArr := func(arr []T, turn, head, rear, prtn_key int) {
+		fmt.Printf("turn %d, head %d, rear %d, key %d: %v\n", turn, head, rear, prtn_key, arr)
 	}
+
+	// recursive closure
+	var sort func(arr []T, head, rear, turn int)
+	sort = func(arr []T, head, rear, turn int) {
+		if head < 0 || rear < 0 || head >= rear {
+			return
+		}
+		prtn_key := partition(arr, head, rear)
+		printArr(arr, turn, head, rear, prtn_key)
+		sort(arr, head, prtn_key-1, turn+1)
+		sort(arr, prtn_key+1, rear, turn+1)
+	}
+
+	sort(arr, 0, len(arr)-1, 0)
 }
 
 func swap[T ordered](arr []T, i, j int) {
