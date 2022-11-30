@@ -9,6 +9,8 @@ import (
 
 type SelectOrderTstr struct{}
 
+var _ Tstr = (*SelectOrderTstr)(nil)
+
 func (tstr *SelectOrderTstr) Test(ctx context.Context) error {
 	c1 := make(chan struct{})
 	c2 := make(chan struct{})
