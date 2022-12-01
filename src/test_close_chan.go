@@ -19,11 +19,14 @@ func (tstr *CloseChanTstr) Test(ctx context.Context) error {
 	os_signal := make(chan os.Signal)
 	signal.Notify(os_signal, syscall.SIGINT, syscall.SIGTERM)
 	input_chan := make(chan struct{}, SIZE)
-	// input_chan := make(chan struct{})
-	// defer close(input_chan)
+	done := make(chan struct{})
 
+	const (
+		WAIT_DURATION_CNT       = 500
+		CHILD_WAIT_DURATION_CNT = 1500
+	)
 	go func() {
-		const WAIT_DURATION_CNT = 1500
+		defer func() { done <- struct{}{} }()
 		rcv_cnt := 0
 		for {
 			select {
@@ -39,7 +42,7 @@ func (tstr *CloseChanTstr) Test(ctx context.Context) error {
 				}
 				rcv_cnt++
 				fmt.Printf("child routine received! rcv_cnt: %d \n", rcv_cnt)
-				time.Sleep(WAIT_DURATION_CNT * time.Millisecond)
+				time.Sleep(CHILD_WAIT_DURATION_CNT * time.Millisecond)
 			}
 			fmt.Printf("child waiting; buffured len: %d \n", len(input_chan))
 		}
@@ -58,10 +61,11 @@ send_inputs_loop:
 		}
 	}
 
-	time.Sleep(500 * time.Millisecond)
+	time.Sleep(WAIT_DURATION_CNT * time.Millisecond)
 	fmt.Printf("complete sending inputs; start closing channel; \n")
 	close(input_chan)
 	fmt.Printf("complete closing channel; \n")
+	<-done
 
 	return nil
 }
