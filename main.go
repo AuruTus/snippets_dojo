@@ -5,17 +5,11 @@ import (
 	"fmt"
 	"os"
 	"os/signal"
-	snipets "snipets_dojo/src"
 	cfmt "snipets_dojo/utils/cfmt"
 	ctxinfo "snipets_dojo/utils/ctx_info"
 	"syscall"
 	"time"
 )
-
-func newTesterEntry() snipets.Tstr {
-	// !NOTE: customize tester entrance here
-	return &snipets.ArrPartitionTstr{}
-}
 
 func main() {
 	tstr := newTesterEntry()
