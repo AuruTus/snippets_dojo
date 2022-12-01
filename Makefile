@@ -1,3 +1,4 @@
+# TODO add init for tstr_entry
 
 .PHONY: build
 build:
