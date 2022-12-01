@@ -14,7 +14,7 @@ import (
 
 func newTesterEntry() snipets.Tstr {
 	// !NOTE: customize tester entrance here
-	return &snipets.CloseChanTstr{}
+	return &snipets.ArrPartitionTstr{}
 }
 
 func main() {
