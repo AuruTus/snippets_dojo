@@ -25,11 +25,13 @@ func (tstr *SelectOrderTstr) Test(ctx context.Context) error {
 		c1 <- struct{}{}
 		c2 <- struct{}{}
 	}
+	const (
+		_CLOSE int32 = iota
+		_SEND
+	)
 	channelEndingSwitcher := func(mode int32) {
 		switch mode {
-		case 1:
-			closeChannels()
-		case 2:
+		case _SEND:
 			sendChannels()
 		default:
 			closeChannels()
@@ -42,7 +44,7 @@ func (tstr *SelectOrderTstr) Test(ctx context.Context) error {
 		cfmt.Printf(ctx, "start cnt\n")
 		// guranteen the main goroutine is blocked
 		time.Sleep(2 * time.Second)
-		channelEndingSwitcher(2)
+		channelEndingSwitcher(_SEND)
 		cfmt.Printf(ctx, "channel closed\n")
 		m.Unlock()
 	}()
