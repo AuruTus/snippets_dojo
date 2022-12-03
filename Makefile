@@ -2,8 +2,7 @@
 
 .PHONY: build
 build:
-	go build -o ./bin/app main.go
-
+	go build -o ./bin/app .
 
 .PHONY: run
 run: build
