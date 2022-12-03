@@ -2,7 +2,7 @@
 .PHONY: init
 init:
 ifeq (,$(wildcard ./tstr_entry.go))
-	./generator.sh
+	./scripts/init_dojo.sh
 endif
 
 .PHONY: build
