@@ -1,7 +1,12 @@
-# TODO add init for tstr_entry
+
+.PHONY: init
+init:
+ifeq (,$(wildcard ./tstr_entry.go))
+	./generator.sh
+endif
 
 .PHONY: build
-build:
+build: init
 	go build -o ./bin/app .
 
 .PHONY: run
