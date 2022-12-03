@@ -1,4 +1,4 @@
-package snipets
+package test_snipets
 
 import "context"
 

@@ -12,7 +12,7 @@ import (
 )
 
 func main() {
-	tstr := newTesterEntry()
+	tstr := NewTesterEntry()
 
 	os_signal := make(chan os.Signal, 1)
 	signal.Notify(os_signal, syscall.SIGINT, syscall.SIGTERM)

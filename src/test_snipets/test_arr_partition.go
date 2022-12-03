@@ -1,9 +1,10 @@
-package snipets
+package test_snipets
 
 import (
 	"context"
 	"fmt"
 	"math/rand"
+	snipets "snipets_dojo/src"
 	"snipets_dojo/utils/cfmt"
 
 	"golang.org/x/exp/constraints"
@@ -15,7 +16,7 @@ type ordered interface {
 
 type ArrPartitionTstr struct{}
 
-var _ Tstr = (*ArrPartitionTstr)(nil)
+var _ snipets.Tstr = (*ArrPartitionTstr)(nil)
 
 func (t *ArrPartitionTstr) Test(ctx context.Context) error {
 	type targ float32
