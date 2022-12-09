@@ -1,7 +1,6 @@
 # Snipets Dojo
 
 A coarse playground for snipets testing.
-___
 
 ## testing utils
 
