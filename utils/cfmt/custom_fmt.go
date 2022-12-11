@@ -4,7 +4,7 @@ import (
 	"context"
 	"fmt"
 	"runtime"
-	ctxinfo "snipets_dojo/utils/ctx_info"
+	ctxinfo "snippets_dojo/utils/ctx_info"
 	"strings"
 )
 
@@ -14,7 +14,7 @@ import (
 const (
 	_CALLER_STACK_SKIP_DEPTH = 3
 
-	_MODULE_NAME = "snipets_dojo"
+	_MODULE_NAME = "snippets_dojo"
 )
 
 func getCallerLine(skip int) (file string, line int) {

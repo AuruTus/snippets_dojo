@@ -1,13 +1,13 @@
-package lc_snipets
+package lc_snippets
 
 import (
 	"context"
-	snipets "snipets_dojo/src"
+	snippets "snippets_dojo/src"
 )
 
 type LC98Tstr struct{}
 
-var _ snipets.Tstr = (*LC98Tstr)(nil)
+var _ snippets.Tstr = (*LC98Tstr)(nil)
 
 func (t *LC98Tstr) Test(ctx context.Context) error {
 	isValidBST(nil)

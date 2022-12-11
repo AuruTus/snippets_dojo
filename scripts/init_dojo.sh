@@ -6,12 +6,12 @@ cat > ${TSTR_ENTRY} << EOF
 package main
 
 import (
-	snipets "snipets_dojo/src"
+	snippets "snippets_dojo/src"
 )
 
-func NewTesterEntry() snipets.Tstr {
+func NewTesterEntry() snippets.Tstr {
 	// !NOTE: customize tester entrance here
-	return &snipets.DummyTstr{}
+	return &snippets.DummyTstr{}
 }
 
 EOF

@@ -1,16 +1,16 @@
-package test_snipets
+package test_snippets
 
 import (
 	"context"
-	snipets "snipets_dojo/src"
-	"snipets_dojo/utils/cfmt"
+	snippets "snippets_dojo/src"
+	"snippets_dojo/utils/cfmt"
 	"sync"
 	"time"
 )
 
 type SelectOrderTstr struct{}
 
-var _ snipets.Tstr = (*SelectOrderTstr)(nil)
+var _ snippets.Tstr = (*SelectOrderTstr)(nil)
 
 func (tstr *SelectOrderTstr) Test(ctx context.Context) error {
 	c1 := make(chan struct{})

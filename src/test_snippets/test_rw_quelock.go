@@ -1,13 +1,13 @@
-package test_snipets
+package test_snippets
 
 import (
 	"context"
-	snipets "snipets_dojo/src"
+	snippets "snippets_dojo/src"
 )
 
 type RWQLockTstr struct{}
 
-var _ snipets.Tstr = (*RWQLockTstr)(nil)
+var _ snippets.Tstr = (*RWQLockTstr)(nil)
 
 func (tstr *RWQLockTstr) Test(ctx context.Context) error {
 	return nil

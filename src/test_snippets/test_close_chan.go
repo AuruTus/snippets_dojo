@@ -1,18 +1,18 @@
-package test_snipets
+package test_snippets
 
 import (
 	"context"
 	"fmt"
 	"os"
 	"os/signal"
-	snipets "snipets_dojo/src"
+	snippets "snippets_dojo/src"
 	"syscall"
 	"time"
 )
 
 type CloseChanTstr struct{}
 
-var _ snipets.Tstr = (*CloseChanTstr)(nil)
+var _ snippets.Tstr = (*CloseChanTstr)(nil)
 
 func (tstr *CloseChanTstr) Test(ctx context.Context) error {
 	const SIZE = 5

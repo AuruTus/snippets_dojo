@@ -1,12 +1,12 @@
-# Snipets Dojo
+# Snippets Dojo
 
-A coarse playground for snipets testing.
+A coarse playground for snippets testing.
 
 ## testing utils
 
 Some small tools to help construct the dojo. (under `./utils`)
 
-## snipets
+## snippets
 
 Main test codes here. (under `./src`)
 

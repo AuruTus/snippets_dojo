@@ -3,17 +3,17 @@
 TSTR_FILE=$1
 TSTR=$2
 
-cat > ./src/test_snipets/${TSTR_FILE} << EOF
-package test_snipets
+cat > ./src/test_snippets/${TSTR_FILE} << EOF
+package test_snippets
 
 import (
 	"context"
-	snipets "snipets_dojo/src"
+	snippets "snippets_dojo/src"
 )
 
 type $TSTR struct{}
 
-var _ snipets.Tstr = (*$TSTR)(nil)
+var _ snippets.Tstr = (*$TSTR)(nil)
 
 func (tstr *$TSTR) Test(ctx context.Context) error {
 	return nil

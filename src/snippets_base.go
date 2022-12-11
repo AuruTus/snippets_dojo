@@ -1,8 +1,8 @@
-package test_snipets
+package test_snippets
 
 import (
 	"context"
-	"snipets_dojo/utils/cfmt"
+	"snippets_dojo/utils/cfmt"
 )
 
 type Tstr interface {

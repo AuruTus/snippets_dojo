@@ -1,4 +1,4 @@
-module snipets_dojo
+module snippets_dojo
 
 go 1.18
 

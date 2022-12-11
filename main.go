@@ -5,8 +5,8 @@ import (
 	"fmt"
 	"os"
 	"os/signal"
-	cfmt "snipets_dojo/utils/cfmt"
-	ctxinfo "snipets_dojo/utils/ctx_info"
+	cfmt "snippets_dojo/utils/cfmt"
+	ctxinfo "snippets_dojo/utils/ctx_info"
 	"syscall"
 	"time"
 )
@@ -23,7 +23,7 @@ func main() {
 
 	tstr_done := make(chan struct{})
 
-	// start snipet test
+	// start snippet test
 	start := time.Now()
 	go func() {
 		tstrCtx, _ := ctxinfo.NewContextWithInfo(ctx, ctxinfo.TESTER)
