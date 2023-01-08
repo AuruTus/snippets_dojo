@@ -19,7 +19,7 @@ var _ snippets.Tstr = (*$TSTR)(nil)
 var logger *cfmt.LogWrapper
 
 func (tstr *$TSTR) Test(ctx context.Context) error {
-	logger = cfmt.NewLogger(ctx)
+	logger = cfmt.NewSimpleLogger(ctx)
 	return nil
 }
 
