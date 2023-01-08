@@ -16,8 +16,10 @@ type $TSTR struct{}
 
 var _ snippets.Tstr = (*$TSTR)(nil)
 
+var logger *cfmt.LogWrapper
+
 func (tstr *$TSTR) Test(ctx context.Context) error {
-	log := cfmt.Logger(ctx)
+	logger = cfmt.NewLogger(ctx)
 	return nil
 }
 

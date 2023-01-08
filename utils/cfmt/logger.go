@@ -17,9 +17,14 @@ func InitLogger() {
 	log.SetFlags(log.Lshortfile)
 }
 
-func Logger(ctx context.Context) func(format string, args ...any) (int, error) {
-	simpleLogger := func(format string, args ...any) (int, error) {
-		return Printf(ctx, fmt.Sprintf("%s\n", format), args)
+type LogWrapper struct {
+	Log func(format string, args ...any) (int, error)
+}
+
+func NewLogger(ctx context.Context) *LogWrapper {
+	return &LogWrapper{
+		Log: func(format string, args ...any) (int, error) {
+			return Printf(ctx, fmt.Sprintf("%s\n", format), args)
+		},
 	}
-	return simpleLogger
 }
