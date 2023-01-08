@@ -18,11 +18,11 @@ type Duck interface {
 	Quack() bool
 }
 
-/**
+/*
  * ===================
  * Composite Interface
  * ===================
- * */
+ */
 type CowDuck interface {
 	Cow
 	Duck
@@ -37,11 +37,11 @@ var _ CowDuck = (*CDStruct)(nil)
 var _ Cow = (*CDStruct)(nil)
 var _ Duck = (*CDStruct)(nil)
 
-/**
+/*
  * ===================
  * Type Constraints
  * ===================
- * */
+ */
 type CowMow int64
 type DuckQuack bool
 
@@ -49,11 +49,11 @@ type CowDuckConstraints interface {
 	CowMow | DuckQuack
 }
 
-/**
+/*
  * ===================
  * Type Constraints mixes Composite Interface
  * ===================
- * */
+ */
 type CowDuckMixed interface {
 	CDStruct | CowDuckConstraints
 
