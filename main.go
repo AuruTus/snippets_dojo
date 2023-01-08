@@ -14,10 +14,12 @@ import (
 func main() {
 	tstr := NewTesterEntry()
 
+	/* NOTE: os signal channel's buffer is needed */
 	os_signal := make(chan os.Signal, 1)
 	signal.Notify(os_signal, syscall.SIGINT, syscall.SIGTERM)
 
 	bg_ctx, bg_cancel := context.WithCancel(context.Background())
+	defer bg_cancel()
 
 	ctx, _ := ctxinfo.NewContextWithInfo(bg_ctx, ctxinfo.MAIN)
 
@@ -43,9 +45,11 @@ func main() {
 		cfmt.InfoStr("%d", start.Unix()),
 	)
 
+	/*
+	 * Blocked for awaiting Tstr done or OS signal
+	 */
 	select {
 	case <-os_signal:
-		bg_cancel()
 	case <-tstr_done:
 	}
 
@@ -58,5 +62,4 @@ func main() {
 		cfmt.InfoStr("%d", end.Unix()),
 		cfmt.InfoStr("%d", elapsed.Nanoseconds()),
 	)
-	bg_cancel()
 }
