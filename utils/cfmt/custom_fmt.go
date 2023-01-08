@@ -34,8 +34,12 @@ func getCallerLine(skip int) (file string, line int) {
 	return
 }
 
+func baseCallerLine() (file string, line int) {
+	return getCallerLine(_CALLER_STACK_SKIP_DEPTH)
+}
+
 func simplePrintf(ctx context.Context, format string, args ...interface{}) (int, error) {
-	file, line := getCallerLine(_CALLER_STACK_SKIP_DEPTH)
+	file, line := baseCallerLine()
 	return fmt.Printf(
 		"%s: %s",
 		Green(fmt.Sprintf("%s %d", file, line)),
@@ -46,7 +50,7 @@ func simplePrintf(ctx context.Context, format string, args ...interface{}) (int,
 func verbosePrintf(ctx context.Context, format string, args ...interface{}) (int, error) {
 	info, _ := ctxinfo.Unwrap(ctx.Value(ctxinfo.CTX_INFO_KEY))
 
-	file, line := getCallerLine(_CALLER_STACK_SKIP_DEPTH)
+	file, line := baseCallerLine()
 
 	return fmt.Printf(
 		"@%s | %s | %s",
